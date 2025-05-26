@@ -3,6 +3,10 @@
 namespace Modules\Server;
 
 use Illuminate\Support\ServiceProvider;
+use Modules\Server\Repositories\User\UserInterface;
+use Modules\Server\Repositories\User\UserRepository;
+use Modules\Server\Services\Auth\AuthImplement;
+use Modules\Server\Services\Auth\AuthService;
 
 class ServerServiceProvider extends ServiceProvider
 {
@@ -37,9 +41,18 @@ class ServerServiceProvider extends ServiceProvider
 
     protected function loadInterfaceRepository(): void
     {
+        $this->app->bind(
+            UserInterface::class,
+            UserRepository::class
+        );
     }
+
 
     protected function loadInterfaceService(): void
     {
+        $this->app->bind(
+            AuthImplement::class,
+            AuthService::class
+        );
     }
 }
