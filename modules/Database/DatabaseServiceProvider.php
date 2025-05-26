@@ -3,6 +3,9 @@
 namespace Modules\Database;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Database\Schema\Blueprint as BaseBlueprint;
+use Modules\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\Builder;
 
 class DatabaseServiceProvider extends ServiceProvider
 {
@@ -23,10 +26,14 @@ class DatabaseServiceProvider extends ServiceProvider
         $this->loadInterfaceService();
         $this->loadViewPage();
         $this->loadData();
+        Builder::macro('blueprint', function () {
+            return new Blueprint($this);
+        });
     }
 
     protected function loadRoutesAuth(): void
     {
+        $this->app->bind(BaseBlueprint::class, Blueprint::class);
         $this->loadRoutesFrom(__DIR__ . '/routes.php');
     }
 
@@ -46,4 +53,5 @@ class DatabaseServiceProvider extends ServiceProvider
     protected function loadInterfaceService(): void
     {
     }
+
 }
