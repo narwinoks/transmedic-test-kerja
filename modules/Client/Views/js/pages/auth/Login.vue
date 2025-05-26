@@ -1,28 +1,38 @@
 <script setup lang="ts">
-import InputError from '../../components/InputError.vue';
-import TextLink from '../../components/TextLink.vue';
-import { Button } from '../../components/ui/button';
-import { Checkbox } from '../../components/ui/checkbox';
-import { Input } from '../../components/ui/input';
-import { Label } from '../../components/ui/label';
-import AuthBase from '../../layouts/AuthLayout.vue';
+import axios from 'axios';
+import InputError from '@/components/InputError.vue';
+import TextLink from '@/components/TextLink.vue';
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import AuthBase from '@/layouts/AuthLayout.vue';
 import { Head, useForm } from '@inertiajs/vue3';
 import { LoaderCircle } from 'lucide-vue-next';
-import { useToast } from 'primevue/usetoast'
-
+import { useApi } from '@/utils/useApi';
+import { useUserSession } from '@/storage/useSessionStorage';
+import { Inertia } from '@inertiajs/inertia'
 defineProps<{
     status?: string;
     canResetPassword: boolean;
 }>();
-const toast = useToast()
 const form = useForm({
     email: '',
     password: '',
     remember: false,
 });
-
-const submit = () => {
-    toast.add({ severity: 'success', summary: 'Sukses', detail:"Login Berhasil", life: 3000 })
+const userSession = useUserSession()
+const submit  =async () => {
+    form.processing = true;
+    try{
+        const {data} =  await useApi().post("/server/auth/login",form);
+        userSession.setToken(data.token);
+        Inertia.visit('/dashboard/Patient');
+    }catch{
+        
+    }finally{
+        form.processing = false;
+    }
 };
 </script>
 

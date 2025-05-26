@@ -11,7 +11,7 @@ withDefaults(defineProps<{
 </script>
 
 <template>
-    <header  class="flex bg-white justify-between h-16 shrink-0 items-center gap-2 border-b border-sidebar-border/70 px-6 transition-[width,height]  ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 md:px-4">
+    <header  class="flex bg-white dark:bg-[hsl(240,4%,12%)] justify-between h-16 shrink-0 items-center gap-2 border-b border-sidebar-border/70 px-6 transition-[width,height]  ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 md:px-4">
             <div class="flex items-center gap-3">
                 <img src="https://v2-dev-simrs.transmedic.co.id/img/logo_t.png" alt="Logo" class="w-10 h-10" >
                 <div class="leading-tight">

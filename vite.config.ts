@@ -8,8 +8,8 @@ import { defineConfig } from 'vite';
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['modules/Client/js/app.ts'],
-            ssr: 'modules/Client/js/ssr.ts',
+            input: ['modules/Client/Views/js/app.ts'],
+            ssr: 'modules/Client/views/js/ssr.ts',
             refresh: true,
         }),
         tailwindcss(),
@@ -24,7 +24,7 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
-            '@': path.resolve(__dirname, '/modules/Client/js'),
+            '@': path.resolve(__dirname, 'modules/Client/Views/js'),
             'ziggy-js': resolve(__dirname, 'vendor/tightenco/ziggy'),
         },
     },

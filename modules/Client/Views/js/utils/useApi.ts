@@ -1,7 +1,7 @@
 import axios, {AxiosInstance} from 'axios';
-import {useUserSession} from '/@src/stores/userSession';
+import {useUserSession} from '../storage/useSessionStorage';
 import {useToaster} from './toaster';
-import * as H from '/@src/utils/appHelper';
+import * as H from './helper';
 
 let api: AxiosInstance;
 let isRefreshing = false;
@@ -111,8 +111,7 @@ export const createApi = (baseUrl: string) => {
                 !(error.response?.status === 404 && error.response?.data?.message === 'Not Found') &&
                 !(error.response?.status === 400 && error.response?.data?.errors?.bpjs)
             ) {
-                const notif = useToaster();
-                notif.error(error.response != undefined ? error.response?.data?.message : error.message);
+                H.alert('warning', error.response != undefined ? error.response?.data?.message : error.message)
             }else if (error.response?.status === 400 && !error.response?.data?.errors?.bpjs) {
                 const errorsArray = H.errorToArray(error.response.data.errors);
                 H.alert('warning', H.formatErrorMessage(errorsArray[0]))
