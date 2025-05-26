@@ -1,0 +1,45 @@
+<?php
+
+namespace Modules\{{name}};
+
+use Illuminate\Support\ServiceProvider;
+
+class {{name}}ServiceProvider extends ServiceProvider
+{
+    /**
+     * Register services.
+     */
+    public function register(): void
+    {
+        $this->loadInterfaceRepository();
+    }
+
+    /**
+     * Bootstrap services.
+     */
+    public function boot(): void
+    {
+        $this->loadRoutesAuth();
+        $this->loadInterfaceService();
+        $this->loadViewPage();
+    }
+
+    protected function loadRoutesAuth(): void
+    {
+        $this->loadRoutesFrom(__DIR__ . '/routes.php');
+    }
+
+    protected function loadViewPage()
+    {
+        $this->loadViewsFrom(__DIR__.'/Views', "{{name}}");
+
+    }
+
+    protected function loadInterfaceRepository(): void
+    {
+    }
+
+    protected function loadInterfaceService(): void
+    {
+    }
+}

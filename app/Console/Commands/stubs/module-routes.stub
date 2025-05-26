@@ -1,0 +1,9 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+
+Route::prefix('{{name}}')->name('{{name}}.')->middleware('api')->group(function () {
+    Route::get('/', function () {
+        return 'This is the {{name}} module.';
+    }){{auth}};
+});
